@@ -1,0 +1,107 @@
+From c593df989ec0cb82c3bca6698d5cf800f23e6958 Mon Sep 17 00:00:00 2001
+From: Alexander Herfurtner <alexander.h@variscite.com>
+Date: Sun, 10 May 2026 06:22:12 +0200
+Subject: [PATCH] imx8mm-var-dart: Use user UARTs as GPIOs
+
+This will free the UART2 and UART3 to be used as GPIOs.
+
+Therfore:
+- Remove UART2 and UART3 node and corresponding pinctrl groups
+- Create hog group within iomuxc
+
+Pad configuration:
+- DSE:  0b110
+- FSEL: 0b10
+- ODE:  0b1
+
+Note: All pins are configured with Open-Drain enabled. In
+this mode they can be used to overdrive the Boot Mode or
+User Button and as well the Power Switch.
+
+This makes the following pins available on the Sonata-Board
+and DT8MCustomBoard:
+
+- UART2_RXD_GPIO5_IO24: Jx.6
+- UART2_TXD_GPIO5_IO25: Jx.4
+
+- UART3_RXD_GPIO5_IO26: Jx.11
+- UART3_TXD_GPIO5_IO27: Jx.13
+
+Where Jx:
+- Sonata-Board: J6
+- D8MCustonBoard: J12
+
+Signed-off-by: Alexander Herfurtner <alexander.h@variscite.com>
+---
+ .../imx8mm-var-dart-dt8mcustomboard.dts       | 41 ++++++-------------
+ 1 file changed, 13 insertions(+), 28 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-dart-dt8mcustomboard.dts b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-dt8mcustomboard.dts
+index f876caa65846..e0f984d213ca 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-var-dart-dt8mcustomboard.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-dt8mcustomboard.dts
+@@ -307,20 +307,6 @@ &uart1 {
+ 	status = "okay";
+ };
+ 
+-/* Header */
+-&uart2 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_uart2>;
+-	status = "okay";
+-};
+-
+-/* Header */
+-&uart3 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_uart3>;
+-	status = "okay";
+-};
+-
+ &usbotg1 {
+ 	dr_mode = "otg";
+ 	hnp-disable;
+@@ -424,6 +410,19 @@ &snvs_rtc {
+ };
+ 
+ &iomuxc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_hog>;
++
++	pinctrl_hog: hoggrp {
++		fsl,pins = <
++			MX8MM_IOMUXC_UART2_RXD_GPIO5_IO24		0x36
++			MX8MM_IOMUXC_UART2_TXD_GPIO5_IO25		0x36
++
++			MX8MM_IOMUXC_UART3_RXD_GPIO5_IO26		0x36
++			MX8MM_IOMUXC_UART3_TXD_GPIO5_IO27		0x36
++		>;
++	};
++
+ 	pinctrl_i2c2: i2c2grp {
+ 		fsl,pins = <
+ 			MX8MM_IOMUXC_I2C2_SCL_I2C2_SCL			0x400001c3
+@@ -459,20 +458,6 @@ MX8MM_IOMUXC_UART1_TXD_UART1_DCE_TX		0x140
+ 		>;
+ 	};
+ 
+-	pinctrl_uart2: uart2grp {
+-		fsl,pins = <
+-			MX8MM_IOMUXC_UART2_RXD_UART2_DCE_RX		0x140
+-			MX8MM_IOMUXC_UART2_TXD_UART2_DCE_TX		0x140
+-		>;
+-	};
+-
+-	pinctrl_uart3: uart3grp {
+-		fsl,pins = <
+-			MX8MM_IOMUXC_UART3_RXD_UART3_DCE_RX		0x140
+-			MX8MM_IOMUXC_UART3_TXD_UART3_DCE_TX		0x140
+-		>;
+-	};
+-
+ 	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmc {
+ 		fsl,pins = <
+ 			MX8MM_IOMUXC_SD2_RESET_B_GPIO2_IO19		0xc1
+-- 
+2.34.1
+
