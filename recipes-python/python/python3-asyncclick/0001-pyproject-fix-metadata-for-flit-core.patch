@@ -1,0 +1,13 @@
+Older flit_core releases used by some Yocto branches don't support the
+`license-files` key and expect the `license` field to be a table/dict.
+
+Upstream: Inappropriate [oe-specific]
+
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -4,4 +4,3 @@
+ readme = "README.md"
+-license = "BSD-3-Clause"
+-license-files = ["LICENSE.txt"]
++license = {text = "BSD-3-Clause"}
+ maintainers = [{name = "Matthias Urlichs", email = "matthias@urlichs.de"}]
