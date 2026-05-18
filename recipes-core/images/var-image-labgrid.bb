@@ -2,12 +2,27 @@ SUMMARY = "Variscite GUI image based on fsl-image-gui"
 DESCRIPTION = "Image based on fsl-image-gui with Variscite lab additions."
 LICENSE = "MIT"
 
-require recipes-fsl/images/fsl-image-gui.bb
+inherit core-image
+
+IMAGE_FEATURES = " \
+    debug-tweaks \
+    hwcodecs \
+    nfs-client \
+    ssh-server-openssh \
+    tools-debug \
+    tools-testapps \
+"
 
 # labgrid test framework
 CORE_IMAGE_EXTRA_INSTALL += " \
     python3-labgrid \
     python3-usbsdmux \
+    python3-kasa \
+"
+
+# Software Update Services
+CORE_IMAGE_EXTRA_INSTALL += " \
+    swupdate \
 "
 
 # Network Services
@@ -15,9 +30,14 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     tailscale \
 "
 
-# Software Update Services
+# Gneric packages
 CORE_IMAGE_EXTRA_INSTALL += " \
-    swupdate \
+    inetutils-tftp \
+    inetutils-tftpd \
+    nfs-utils \
+    packagegroup-tools-bluetooth \
+    packagegroup-variscite-devel \
+    tmate \
 "
 
 COMPATIBLE_MACHINE = "(imx8mm-var-dart)"
