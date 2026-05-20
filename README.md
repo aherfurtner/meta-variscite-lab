@@ -10,8 +10,7 @@ What is included
   - Labgrid
   - Tailscale
   - SWUpdate
-- Linux kernel bbappend to free GPIOs so they can be used for relays and to override DUT boot mode,
-  user buttons, or power switch.
+- Linux kernel bbappend to free GPIOs to be used with relays, boot mode or user button control.
 - Support for Linux Automation USB-SD-MUX devices.
 
 Supported target
@@ -20,29 +19,38 @@ Supported target
 - Currently supported machine: `imx8mm-var-dart`
 - Intended board/device-tree setup: `dt8mcustomboard`
 
-Requirements
-============
+Usage
+=====
 
 1. Clone dependency layers into your Yocto `sources` directory.
 
+meta-tailscale:
+```sh
    git clone https://github.com/ChristophHandschuh/meta-tailscale.git
+```
+
+meta-labgrid:
+```sh
    git clone https://github.com/labgrid-project/meta-labgrid.git
+```
+2. Checkout target branch for `meta-labgrid`.
 
-2. Checkout the correct branch for `meta-labgrid`.
-
-   cd meta-labgrid
-   git checkout scarthgap
-   cd ..
+```sh
+   git -C ./meta-labgrid switch scarthgap
+```
 
 3. Add both layers to `bblayers.conf` (from your build directory).
 
-   bitbake-layers add-layer ../sources/meta-tailscale
+```sh
+   bitbake-layers add-layer ../sources/meta-tailscale;
    bitbake-layers add-layer ../sources/meta-labgrid
+```
+
+And `meta-variscite-lab`as well:
+```sh
    bitbake-layers add-layer ../sources/meta-variscite-lab
+````
 
-4. Confirm required packages are included by your image recipe.
-   `var-image-labgrid` should include Labgrid, Tailscale, and SWUpdate support.
-
-5. Build the image.
+4. Build the image.
 
    bitbake var-image-labgrid
