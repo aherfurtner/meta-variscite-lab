@@ -35,6 +35,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     inetutils-tftp \
     inetutils-tftpd \
     nfs-utils \
+    nfs-config \
     packagegroup-tools-bluetooth \
     packagegroup-variscite-devel \
     tmate \
