@@ -1,5 +1,5 @@
-SUMMARY = "Variscite GUI image based on fsl-image-gui"
-DESCRIPTION = "Image based on fsl-image-gui with Variscite lab additions."
+SUMMARY = "Variscite GUI image based on core-image"
+DESCRIPTION = "Image based on core-image with Variscite lab additions."
 LICENSE = "MIT"
 
 inherit core-image
