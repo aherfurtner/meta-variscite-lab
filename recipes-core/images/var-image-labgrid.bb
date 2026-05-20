@@ -23,6 +23,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 # Software Update Services
 CORE_IMAGE_EXTRA_INSTALL += " \
     swupdate \
+    swupdate-www \
 "
 
 # Network Services
@@ -40,5 +41,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     packagegroup-variscite-devel \
     tmate \
 "
+
+WKS_FILE:mx8-nxp-bsp = "var-imx-swu-dual-rootfs.wks.in"
 
 COMPATIBLE_MACHINE = "(imx8mm-var-dart)"
