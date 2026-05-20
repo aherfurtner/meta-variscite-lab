@@ -26,8 +26,9 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     swupdate-www \
 "
 
-# Network Services
+# Remote Network Services
 CORE_IMAGE_EXTRA_INSTALL += " \
+    tmate \
     tailscale \
 "
 
@@ -39,7 +40,6 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     nfs-config \
     packagegroup-tools-bluetooth \
     packagegroup-variscite-devel \
-    tmate \
 "
 
 WKS_FILE:mx8-nxp-bsp = "var-imx-swu-dual-rootfs.wks.in"
