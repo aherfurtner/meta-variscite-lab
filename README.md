@@ -47,10 +47,33 @@ meta-labgrid:
 ```
 
 And `meta-variscite-lab`as well:
+
 ```sh
    bitbake-layers add-layer ../sources/meta-variscite-lab
 ````
 
 4. Build the image.
 
+```sh
    bitbake var-image-labgrid
+```
+
+Update via SWUpdate
+===================
+
+The image `var-image-labgrid` comes by default with SWUpdate, including the
+web server.
+
+1. Set the SWUpdate target image persistently in `conf/local.conf`:
+
+```sh
+   echo 'VAR_SWUPDATE_TARGET_IMAGE = "var-image-labgrid"' >> conf/local.conf
+```
+
+2. Create the SWU artifact:
+
+```sh
+   bitbake var-image-swu
+```
+
+3. Open the web server at `http://<target>:8080` and drag & drop the SWU image.
