@@ -42,7 +42,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     packagegroup-variscite-devel \
 "
 
-WKS_FILE:mx8-nxp-bsp = "var-imx-swu-dual-rootfs.wks.in"
+WKS_FILE = "var-imx-swu-dual-rootfs.wks.in"
 
 # Ensure /data exists and is mounted automatically from the data
 # partition created in var-imx-swu-dual-rootfs.wks.in.
