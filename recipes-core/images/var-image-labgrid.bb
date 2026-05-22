@@ -34,6 +34,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 
 # Gneric packages
 CORE_IMAGE_EXTRA_INSTALL += " \
+    can-utils \
     inetutils-tftp \
     inetutils-tftpd \
     nfs-utils \
