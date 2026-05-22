@@ -37,6 +37,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     can-utils \
     inetutils-tftp \
     inetutils-tftpd \
+    minicom \
     nfs-utils \
     nfs-config \
     packagegroup-tools-bluetooth \
